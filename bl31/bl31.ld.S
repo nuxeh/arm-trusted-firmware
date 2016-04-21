@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013-2014, ARM Limited and Contributors. All rights reserved.
+ * Copyright (c) 2015-2016, Renesas Electronics Corporation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,6 +50,10 @@ SECTIONS
     ro . : {
         __RO_START__ = .;
         *bl31_entrypoint.o(.text*)
+#if PLAT_rcar
+        . = NEXT(ALIGN_VERSION);
+        *rcar_common.o(.version*)
+#endif
         *(.text*)
         *(.rodata*)
 
